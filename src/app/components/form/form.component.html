@@ -1,0 +1,194 @@
+<div class="container">
+    <div class="separator-2"></div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+        <div class="col-md-12 head"><img src="../../../assets/images/INTERFACEREGISTRO (1)_page-0001.jpg" alt=""></div>
+
+        <div class="row body-form">
+
+            <div class="col-md-6 form-group">
+                <label for="document" class="form-label">NÚMERO DE CÉDULA</label>
+                <input type="number" class="form-control" id="document" formControlName="document" maxlength="10">
+                <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.required">
+                    Campo requerido
+                </span>
+                <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.alreadyExists">
+                    {{ form.controls.document.errors?.alreadyExists }}
+                </span>
+                <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.pattern">Número de documento no valido</span>
+
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="departament" class="form-label">DEPARTAMENTO EXPEDICIÓN</label>
+                <select class="form-select" id="departament" formControlName="departament">
+                    <option [disabled]="true" [selected]="true" value="null">Seleccione</option>
+                    <option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</option>
+                </select>
+                <span class="text-danger no-valid" *ngIf="form.controls.departament.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="documentCityId" class="form-label">CIUDAD EXPEDICIÓN</label>
+                <select class="form-select" id="documentCityId" formControlName="documentCityId">
+                    <option [disabled]="true" [selected]="true">Seleccione</option>
+                    <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+                </select>
+                <span class="text-danger no-valid"
+                    *ngIf="form.controls.documentCityId.errors?.required">Campo requerido</span>
+
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="documentDate" class="form-label">FECHA DE EXPEDICIÓN</label>
+                <input type="date" class="form-control " [max]="maxDate" id="documentDate" formControlName="documentDate" min="00-00-1950">
+                <span class="text-danger no-valid" *ngIf="form.controls.documentDate.errors?.required">Campo
+                    requerido</span>
+
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="name" class="form-label">PRIMER NOMBRE</label>
+                <input type="text" class="form-control" id="name" formControlName="name" maxlength="15">
+                <span class="text-danger no-valid" *ngIf="form.controls.name.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.name.errors?.pattern">Debe
+                    contener solo letras</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="middleName" class="form-label">SEGUNDO NOMBRE</label>
+                <input type="text" class="form-control" id="middleName" formControlName="middleName" maxlength="15">
+                <span class="text-danger no-valid" *ngIf="form.controls.middleName.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.middleName.errors?.pattern">Debe
+                    contener solo letras</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="lastname" class="form-label">PRIMER APELLIDO</label>
+                <input type="text" class="form-control" id="lastname" formControlName="lastname" maxlength="15">
+                <span class="text-danger no-valid" *ngIf="form.controls.lastname.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.lastname.errors?.pattern">Debe
+                    contener solo letras</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="secondLastname" class="form-label">SEGUNDO APELLIDO</label>
+                <input type="text" class="form-control" id="secondLastname" formControlName="secondLastname" maxlength="15">
+                <span class="text-danger no-valid" *ngIf="form.controls.secondLastname.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.secondLastname.errors?.pattern">Debe
+                    contener solo letras</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="academicLevelId" class="form-label">NIVEL DEL QUE TE GRADUAS</label>
+                <select class="form-select" id="academicLevelId" formControlName="academicLevelId">
+                    <option [disabled]="true" [selected]="true" value="null">Seleccione</option>
+                    <option *ngFor="let academicLevel of academicLevels" value="{{academicLevel.id}}">
+                        {{academicLevel.name}}</option>
+                </select>
+                <span class="text-danger no-valid" *ngIf="form.controls.academicLevelId.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="gradeOptionLevelId" class="form-label">OPCIÓN DE GRADO</label>
+                <select class="form-select" id="gradeOptionLevelId" formControlName="gradeOptionLevelId">
+                    <option [disabled]="true" [selected]="true" value="null">Seleccione</option>
+                    <option *ngFor="let gradeOption of gradeOptions" value="{{gradeOption.id}}">{{gradeOption.name}}
+                    </option>
+                </select>
+                <span class="text-danger no-valid" *ngIf="form.controls.gradeOptionLevelId.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="email" class="form-label">EMAIL</label>
+                <input type="text" class="form-control" id="email" formControlName="email">
+                <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.required">
+                    Campo requerido
+                </span>
+                <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.alreadyExists">
+                    {{ form.controls.email.errors?.alreadyExists }}
+                </span>
+                <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.pattern">Formato de email no valido</span>
+                
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="cellphone" class="form-label">CELULAR</label>
+                <input type="tel" class="form-control" id="cellphone" formControlName="cellphone">
+                <span class="text-danger no-valid" *ngIf="form.controls.cellphone.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.cellphone.errors?.pattern">Formato de celular no valido</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="paymentValue" class="form-label">VALOR DEL PAGO</label>
+                <input type="text" class="form-control"   id="paymentValue" formControlName="paymentValue" maxlength="10" >
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentValue.errors?.required">Campo
+                    requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentValue.errors?.pattern">Debe
+                    contener solo numeros</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="paymentDate" class="form-label">FECHA DEL PAGO</label>
+                <input type="date" class="form-control"  [max]="maxDate" id="paymentDate" formControlName="paymentDate">
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentDate.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+            <label for="" class="form-label" style="padding-left: 15px;">SUBE TU COMPROBANTE PAGO</label>
+            <div class="col-md-12 file-select">
+
+                <input type="file" class="form-control" (change)="onChange($event)" id="paymentDoc" formControlName="paymentDoc" [(ngModel)] = "fileName">
+                <label for="paymentDoc" class="form-label ">{{fileName}}</label>
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentDoc.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+            <div class="separator-2"></div>
+            <div class="col-md-12 send">
+                <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="modal.open(content)" >ENVIAR</button>
+            </div>
+            <div class="separator-2"></div>
+        </div>
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header" style="border: none;">
+          
+            </div>
+            <div class="modal-body" style="border: none; text-align: center;">
+                <h4 class="modal-title" id="modal-basic-title">¿Estas seguro de enviar estos datos?</h4>
+              <p>Recuerda que cualquier cambio generará costo adicional.</p>
+            </div>
+            <div class="modal-footer" style="display: block; border: none; padding: 20px;">
+              <button type="button" class="btn btn-danger" (click)="d('Cross click')" style="float: left;">Cancelar</button>
+              <button type="submit" class="btn btn-success" (click)="onSubmit(); d('Cross click')" style="float: right;">Aceptar</button>
+            </div>
+          </ng-template>
+    </form>
+    <div class="separator-2"></div>
+
+
+    
+      
+
+</div>
