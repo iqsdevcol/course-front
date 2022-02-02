@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "graduation-form": {
+    "graduationform": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
