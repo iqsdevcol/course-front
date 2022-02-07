@@ -16,7 +16,8 @@
                 <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.alreadyExists">
                     {{ form.controls.document.errors?.alreadyExists }}
                 </span>
-                <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.pattern">Número de documento no valido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.document.errors?.pattern">Número de documento no
+                    valido</span>
 
             </div>
 
@@ -37,15 +38,16 @@
                     <option [disabled]="true" [selected]="true">Seleccione</option>
                     <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
                 </select>
-                <span class="text-danger no-valid"
-                    *ngIf="form.controls.documentCityId.errors?.required">Campo requerido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.documentCityId.errors?.required">Campo
+                    requerido</span>
 
                 <div class="separator-2"></div>
             </div>
 
             <div class="col-md-6 form-group">
                 <label for="documentDate" class="form-label">FECHA DE EXPEDICIÓN</label>
-                <input type="date" class="form-control " [max]="maxDate" id="documentDate" formControlName="documentDate" min="00-00-1950">
+                <input type="date" class="form-control " [max]="maxDate" id="documentDate"
+                    formControlName="documentDate" min="00-00-1950">
                 <span class="text-danger no-valid" *ngIf="form.controls.documentDate.errors?.required">Campo
                     requerido</span>
 
@@ -84,7 +86,8 @@
 
             <div class="col-md-6 form-group">
                 <label for="secondLastname" class="form-label">SEGUNDO APELLIDO</label>
-                <input type="text" class="form-control" id="secondLastname" formControlName="secondLastname" maxlength="15">
+                <input type="text" class="form-control" id="secondLastname" formControlName="secondLastname"
+                    maxlength="15">
                 <span class="text-danger no-valid" *ngIf="form.controls.secondLastname.errors?.required">Campo
                     requerido</span>
                 <span class="text-danger no-valid" *ngIf="form.controls.secondLastname.errors?.pattern">Debe
@@ -125,8 +128,9 @@
                 <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.alreadyExists">
                     {{ form.controls.email.errors?.alreadyExists }}
                 </span>
-                <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.pattern">Formato de email no valido</span>
-                
+                <span class="text-danger no-valid" *ngIf="form.controls.email.errors?.pattern">Formato de email no
+                    valido</span>
+
                 <div class="separator-2"></div>
             </div>
 
@@ -135,23 +139,39 @@
                 <input type="tel" class="form-control" id="cellphone" formControlName="cellphone">
                 <span class="text-danger no-valid" *ngIf="form.controls.cellphone.errors?.required">Campo
                     requerido</span>
-                <span class="text-danger no-valid" *ngIf="form.controls.cellphone.errors?.pattern">Formato de celular no valido</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.cellphone.errors?.pattern">Formato de celular no
+                    valido</span>
                 <div class="separator-2"></div>
             </div>
 
+
             <div class="col-md-6 form-group">
-                <label for="paymentValue" class="form-label">VALOR DEL PAGO</label>
-                <input type="text" class="form-control"   id="paymentValue" formControlName="paymentValue" maxlength="10" >
+                <label for="paymentList" class="form-label">VALOR DEL PAGO</label>
+                <select class="form-select" id="paymentList" formControlName="paymentList"  (change)="showInput()">
+                    <option value="null">Seleccione</option>
+                    <option value="650000">$650.000</option>
+                    <option value="800000">$800.000</option>
+                    <option value="1100000">$1.100.000</option>
+                    <option value="1300000">$1.300.000</option>
+                    <option value="0">Otro</option>
+                </select>
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentList.errors?.required">Campo
+                    requerido</span>
+                <div class="separator-2"></div>
+            </div>
+
+            <div class="col-md-6 form-group" id="pay" hidden>
+                <label for="paymentValue" class="form-label">INGRESA EL VALOR DEL PAGO</label>
+                <input type="text" class="form-control" id="paymentValue" formControlName="paymentValue" maxlength="10"  (keyup)="ponerPuntos()" >
                 <span class="text-danger no-valid" *ngIf="form.controls.paymentValue.errors?.required">Campo
                     requerido</span>
-                <span class="text-danger no-valid" *ngIf="form.controls.paymentValue.errors?.pattern">Debe
-                    contener solo numeros</span>
+                <span class="text-danger no-valid" *ngIf="form.controls.paymentValue.errors?.pattern">Valor no valido</span>
                 <div class="separator-2"></div>
             </div>
 
             <div class="col-md-6 form-group">
                 <label for="paymentDate" class="form-label">FECHA DEL PAGO</label>
-                <input type="date" class="form-control"  [max]="maxDate" id="paymentDate" formControlName="paymentDate">
+                <input type="date" class="form-control" [max]="maxDate" id="paymentDate" formControlName="paymentDate">
                 <span class="text-danger no-valid" *ngIf="form.controls.paymentDate.errors?.required">Campo
                     requerido</span>
                 <div class="separator-2"></div>
@@ -159,7 +179,8 @@
             <label for="" class="form-label" style="padding-left: 15px;">SUBE TU COMPROBANTE PAGO</label>
             <div class="col-md-12 file-select">
 
-                <input type="file" class="form-control" (change)="onChange($event)" id="paymentDoc" formControlName="paymentDoc" [(ngModel)] = "fileName">
+                <input type="file" class="form-control" (change)="onChange($event)" id="paymentDoc"
+                    formControlName="paymentDoc" [(ngModel)]="fileName">
                 <label for="paymentDoc" class="form-label ">{{fileName}}</label>
                 <span class="text-danger no-valid" *ngIf="form.controls.paymentDoc.errors?.required">Campo
                     requerido</span>
@@ -167,28 +188,29 @@
             </div>
             <div class="separator-2"></div>
             <div class="col-md-12 send">
-                <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="modal.open(content)" >ENVIAR</button>
+                <button type="button" class="btn btn-primary" [disabled]="!form.valid"
+                    (click)="modal.open(content)">ENVIAR</button>
             </div>
             <div class="separator-2"></div>
         </div>
         <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header" style="border: none;">
-          
+
             </div>
             <div class="modal-body" style="border: none; text-align: center;">
                 <h4 class="modal-title" id="modal-basic-title">¿Estas seguro de enviar estos datos?</h4>
-              <p>Recuerda que los datos aquí registrados serán usados para la expedición del diploma y cualquier cambio tendrá un costo de <span style="font-weight: 600;">$150.000</span> pesos.</p>
+                <p>Recuerda que los datos aquí registrados serán usados para la expedición del diploma y cualquier
+                    cambio tendrá un costo de <span style="font-weight: 600;">$150.000</span> pesos.</p>
             </div>
             <div class="modal-footer" style="display: block; border: none; padding: 20px;">
-              <button type="button" class="btn btn-danger" (click)="d('Cross click')" style="float: left;">Cancelar</button>
-              <button type="submit" class="btn btn-success" (click)="onSubmit(); d('Cross click')" style="float: right;">Aceptar</button>
+                <button type="button" class="btn btn-danger" (click)="d('Cross click')"
+                    style="float: left;">Cancelar</button>
+                <button type="submit" class="btn btn-success" (click)="onSubmit(); d('Cross click')"
+                    style="float: right;">Aceptar</button>
             </div>
-          </ng-template>
+        </ng-template>
     </form>
     <div class="separator-2"></div>
 
-
-    
-      
 
 </div>

@@ -11,7 +11,7 @@ import { ErrorResponseString } from './services/base.service';
 import { ThousandsPipe } from '../pipes/thousands.pipe';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { formatCurrency, getCurrencySymbol } from '@angular/common';
-
+import * as angular from "angular";
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -20,7 +20,8 @@ import { formatCurrency, getCurrencySymbol } from '@angular/common';
 export class FormComponent implements OnInit {
 
   submitted: any = false;
-  file: any
+  file: any;
+  
 
   form = new FormGroup ({
     documentCityId: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{1,10}')]),
@@ -40,10 +41,11 @@ export class FormComponent implements OnInit {
     documentDate: new FormControl('', Validators.required),
     academicLevelId: new FormControl(null, Validators.required),
     gradeOptionLevelId: new FormControl(null, Validators.required),
-    paymentValue: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3,15}')]),
+    paymentValue: new FormControl('', [Validators.required,Validators.pattern('[1-9]{3,15}')]),
     paymentDate: new FormControl('', Validators.required),
     departament: new FormControl(null, Validators.required),
     paymentDoc: new FormControl('', Validators.required),
+    paymentList: new FormControl('', Validators.required),
   })
 
   fileName = ""
@@ -52,14 +54,19 @@ export class FormComponent implements OnInit {
   states: States[] = [];
   cities: City[] = [];
   maxDate: string = '1995-01-01';
-  currencyValue = ''
+  currencyValue = '';
+  selection: any;
+  requiredState = '';
+
+
 
   constructor(private courseSvc: CourseService, public modal: NgbModal ) { }
 
   ngOnInit(): void {
+    
+  
 
     let dtToday = new Date();
-    
     let month = (dtToday.getMonth() + 1).toString();
     let day = dtToday.getDate().toString();
     let year = dtToday.getFullYear();
@@ -150,6 +157,44 @@ export class FormComponent implements OnInit {
     if(fileList.length > 0) {
         this.file = fileList[0];
     }
+  }
+
+  showInput() {
+    let a = (<HTMLInputElement>document.getElementById("paymentList")).value;
+    let b = (<HTMLInputElement>document.getElementById("paymentValue"));
+    
+   
+    if (a == "0") {
+      (<HTMLInputElement>document.getElementById("pay")).hidden = false;
+      b.value = '';
+      this.form.get('paymentValue')!.setValidators([Validators.required, Validators.pattern('[1-9]{3,15}')]);
+      this.form.get('paymentValue')!.updateValueAndValidity();
+
+    } else {
+      (<HTMLInputElement>document.getElementById("pay")).hidden= true;
+      b.value = a;
+      this.form.get('paymentValue')!.clearValidators();
+      this.form.get('paymentValue')!.updateValueAndValidity();
+
+    }
+
+  }
+
+ ponerPuntos() {
+
+  let campo = (<HTMLInputElement>document.getElementById("paymentValue"));
+    let valor:any = campo.value;
+    let num = ""
+    if (valor != "" && valor != null) {
+      valor = valor.replace(/\./g, '')
+      valor = valor.replace(/\./g, '')
+      valor = valor.replace(/[^0-9]/g, '')
+      if (valor != "" && valor != null) {
+        num = Math.ceil(valor).toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+        num = num.split('').reverse().join('').replace(/^[\.]/, '');
+      }
+    }
+    campo.value = num;
   }
 
   
