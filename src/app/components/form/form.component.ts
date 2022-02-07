@@ -41,7 +41,7 @@ export class FormComponent implements OnInit {
     documentDate: new FormControl('', Validators.required),
     academicLevelId: new FormControl(null, Validators.required),
     gradeOptionLevelId: new FormControl(null, Validators.required),
-    paymentValue: new FormControl('', [Validators.required,Validators.pattern('[1-9]{3,15}')]),
+    paymentValue: new FormControl('', [Validators.required]),
     paymentDate: new FormControl('', Validators.required),
     departament: new FormControl(null, Validators.required),
     paymentDoc: new FormControl('', Validators.required),
@@ -167,7 +167,7 @@ export class FormComponent implements OnInit {
     if (a == "0") {
       (<HTMLInputElement>document.getElementById("pay")).hidden = false;
       b.value = '';
-      this.form.get('paymentValue')!.setValidators([Validators.required, Validators.pattern('[1-9]{3,15}')]);
+      this.form.get('paymentValue')!.setValidators([Validators.required]);
       this.form.get('paymentValue')!.updateValueAndValidity();
 
     } else {
